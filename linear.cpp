@@ -34,7 +34,7 @@
 #define LOCKED_POSY 3
 
 //Macros
-#define BLANK(num) ({int i;for(i=0; i<num; i++){lcd->print(" ");}})
+#define BLANK(num) ({unsigned int i;for(i=0; i<num; i++){lcd->print(" ");}})
 
 //Globals
 LiquidCrystal *lcd;
