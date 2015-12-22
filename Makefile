@@ -1,6 +1,8 @@
 ALTERNATE_CORE_PATH = mega32
 BOARD_TAG = mega32-10
 ISP_PORT = /dev/ttyACM0
+AVRDUDE_ARD_PROGRAMMER = avrisp
+AVRDUDE_ARD_BAUDRATE = 19200
 ARDUINO_LIBS = LiquidCrystal
 
 include Arduino.mk
