@@ -100,12 +100,12 @@ void warning(boolean run){
   }
 }
 
-void linearSetup() {
+void setup() {
   pinSetup();
   lcdSetup();
 }
 
-void linearLoop() {
+void loop() {
   readSensors(&stats); 
   if(statsOk(&stats)){
     warning(false);
