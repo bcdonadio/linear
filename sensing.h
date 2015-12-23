@@ -8,4 +8,4 @@ boolean statsOk(Stats *stats);
 void readSensors(Stats *stats);
 void updateReadings(Stats *stats);
 
-#endif //_LINEAR_H
+#endif //_SENSING_H
