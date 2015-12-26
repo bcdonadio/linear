@@ -62,9 +62,9 @@ void loop() {
 
   lcd->setCursor(LOCKED_POSX, LOCKED_POSY);
   if(locked)
-    lcd->print(LOCKED_MSG);
+    lcd->write(char_key); //single char key icon
   else
-    BLANK(sizeof(LOCKED_MSG));
+    BLANK(1);
 
   updateReadings(&stats);
   return;
