@@ -6,6 +6,5 @@
 //Public prototypes
 boolean statsOk(Stats *stats);
 void readSensors(Stats *stats);
-void updateReadings(Stats *stats);
 
 #endif //_SENSING_H

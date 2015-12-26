@@ -5,10 +5,11 @@
 
 //Types
 typedef struct{
-	int temp, pwrin, pwrout, swr;
+	unsigned int temp, pwrin, pwrout, swr;
 }Stats;
 
 //Pin config
+//Digital numbering
 #define RELAY80_PIN   0    //80m band relay
 #define RELAY40_PIN   1    //40m band relay
 #define RELAY20_PIN   2    //20m-15m band relay
@@ -27,5 +28,7 @@ typedef struct{
 #define LCD4_PIN      21   //LCD Data bus line 4
 #define LCDR_PIN      22   //LCD Register Selection pin
 #define LCDE_PIN      23   //LCD Enable pin
+//Analog numbering
+#define TEMP_PIN      6    //Analog temperature reading
 
 #endif //_LINEAR_H
