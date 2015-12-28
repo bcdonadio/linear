@@ -8,6 +8,15 @@ typedef struct{
 	unsigned int temp, pwrin, pwrout, swr;
 }Stats;
 
+enum State{RX,TX};
+enum Warn{OK,WARN};
+enum Lock{FREE,LOCKED};
+
+#define DEBOUNCETIME 10 //in miliseconds
+#define ROWS  4
+#define COLUMNS 20
+#define MAXTEMPREAD 99
+
 //Pin config
 //Digital numbering
 #define RELAY80_PIN   0    //80m band relay
