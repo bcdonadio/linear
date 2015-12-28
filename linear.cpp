@@ -44,6 +44,7 @@ const char *bandMsg[4] = {
   "12m/10m"
 };
 
+
 //Globals
 LiquidCrystal *lcd;
 boolean locked=false;
@@ -87,18 +88,16 @@ void loop() {
 }
 
 void pinSetup(){
-  pinMode(RELAY80_PIN, OUTPUT);
-  pinMode(RELAY40_PIN, OUTPUT);
-  pinMode(RELAY20_PIN, OUTPUT);
-  pinMode(RELAY10_PIN, OUTPUT);
+  int i;
+
+  for(i=0;i<BANDSNUM;i++)
+    pinMode(band[i], OUTPUT);
   pinMode(BIAS_PIN, OUTPUT);
   bandsw.attach(BANDSW_PIN, INPUT_PULLUP);
   bandsw.interval(DEBOUNCETIME);
   pinMode(REARM_PIN, INPUT_PULLUP);
-  pinMode(YD0_PIN, INPUT);
-  pinMode(YD1_PIN, INPUT);
-  pinMode(YD2_PIN, INPUT);
-  pinMode(YD3_PIN, INPUT);
+  for(i=0;i<YD_PINS;i++)
+    pinMode(yd[i], INPUT);
   return;
 }
 
@@ -151,7 +150,14 @@ void lcdSetup(){
 }
 
 void changeBand(){
+  int i;
+
   currentBand<BANDSNUM-1 ? currentBand++ : currentBand=0;
+  for(i=0;i<BANDSNUM;i++)
+    if(i==currentBand)
+      digitalWrite(band[i], HIGH);
+    else
+      digitalWrite(band[i], LOW);
   lcd->setCursor(BAND_POSX, BAND_POSY);
   BLANK(BANDSIZE); //largest band name
   lcd->setCursor(BAND_POSX, BAND_POSY);
