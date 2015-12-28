@@ -1,4 +1,5 @@
 #include <LiquidCrystal.h>
+#include "Bounce2.h"
 #include "linear.h"
 #include "sensing.h"
 #include "chars.h"
@@ -10,6 +11,15 @@
 LiquidCrystal *lcd;
 boolean locked=false;
 Stats stats;
+Bounce bandsw=Bounce();
+char currentBand=0;
+
+const char *bandMsg[4] = {
+  "80m",
+  "40m",
+  "20m/15m",
+  "12m/10m"
+};
 
 //Private prototypes
 //differently from vanilla Arduino projects, those are needed, as the makefile
@@ -34,6 +44,10 @@ void warning(boolean run); //enable/disable warning on screen and bias cutoff
 //locked is just a single character (char_key)
 #define LOCKED_POSX 19
 #define LOCKED_POSY 2
+#define BAND_POSX 6
+#define BAND_POSY 0
+#define BANDSNUM 4 //number of different bands
+#define BANDSIZE 7 //how many chars the largest band msg occupies
 
 //LCD readings positions
 #define TEMP_POSX 16 //max 2 chars
@@ -70,6 +84,15 @@ void loop() {
     BLANK(1);
 
   updateReadings(&stats);
+
+  bandsw.update();
+  if(bandsw.fell()){
+    currentBand<BANDSNUM-1 ? currentBand++ : currentBand=0;
+    lcd->setCursor(BAND_POSX, BAND_POSY);
+    BLANK(BANDSIZE); //largest band name
+    lcd->setCursor(BAND_POSX, BAND_POSY);
+    lcd->print(bandMsg[int(currentBand)]);
+  }
   return;
 }
 
@@ -79,7 +102,8 @@ void pinSetup(){
   pinMode(RELAY20_PIN, OUTPUT);
   pinMode(RELAY10_PIN, OUTPUT);
   pinMode(BIAS_PIN, OUTPUT);
-  pinMode(BANDSW_PIN, INPUT_PULLUP);
+  bandsw.attach(BANDSW_PIN, INPUT_PULLUP);
+  bandsw.interval(10);
   pinMode(REARM_PIN, INPUT_PULLUP);
   pinMode(YD0_PIN, INPUT);
   pinMode(YD1_PIN, INPUT);
